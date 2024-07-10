@@ -6,18 +6,12 @@
 
 [ML Web App for above](https://github.com/mohd-saifuddin/Stellar-Classification-App)
 
-[Paper 1](https://link.springer.com/article/10.1007/s11633-014-0789-2)
+[Paper 1](https://link.springer.com/content/pdf/10.1007/s11633-014-0789-2.pdf)
 
 [Paper 2](https://arxiv.org/pdf/2404.10757)
 
 [Paper 3](https://www.jsr.org/hs/index.php/path/article/download/4375/1918/26335)
 
-[SDSS DR18 Database SQL Query](https://skyserver.sdss.org/dr18/SearchTools/sql) (PhotoObj, SpecObj (same ID is objid, and bestobjid respectively))
+[Paper 4](https://www.sciencedirect.com/science/article/abs/pii/S0577907320300605)
 
-```sql
--- For DR18 ^
-SELECT
-*
-FROM SpecObj
-WHERE class = "STAR" OR class = "QSO" OR class = "GALAXY"
-```
+[SDSS DR18 Database SQL Query](https://skyserver.sdss.org/dr18/SearchTools/sql) (PhotoObj, SpecObj (same ID is objid, and bestobjid respectively))
