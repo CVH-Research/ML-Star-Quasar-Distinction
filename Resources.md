@@ -14,4 +14,4 @@
 
 [Paper 4](https://www.sciencedirect.com/science/article/abs/pii/S0577907320300605)
 
-[SDSS DR18 Database SQL Query](https://skyserver.sdss.org/dr18/SearchTools/sql) (PhotoObj, SpecObj (same ID is objid, and bestobjid respectively))
+[SDSS DR18 Database SQL Query](https://skyserver.sdss.org/dr18/SearchTools/sql)
