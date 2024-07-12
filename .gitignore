@@ -2,5 +2,6 @@
 */.vscode
 */__pycache__
 /data
+/model_dumps
 SDSS_Data.csv
 SDSS_Data_F.csv
