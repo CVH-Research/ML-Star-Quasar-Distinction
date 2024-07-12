@@ -1,19 +1,13 @@
-from matplotlib import pyplot as plt
-from tabulate import tabulate
 import numpy as np
-import os
 import pandas as pd
 import pickle
-from sklearn.metrics import classification_report
-import seaborn as sns
 
 features = ["ra", "dec", "u", "g", "r", "i", "z", "redshift"]
 fi_cols = ["u", "g", "r", "redshift", "g-r", "i-z", "u-r", "i-r", "z-r"]
 
 
 def preprocess(df, features):
-    scale = "scaling.pkl"
-    with open(file=scale, mode="rb") as pre_pkl:
+    with open(file="scaling.pkl", mode="rb") as pre_pkl:
         scaling = pickle.load(file=pre_pkl)
     df = scaling.transform(X=df)
     df = pd.DataFrame(data=df, columns=features)
@@ -31,22 +25,61 @@ def featurize(df):
 
 
 def prediction(X):
-    model = "model_stacking_classifier.pkl"
-    with open(file=model, mode="rb") as m_pkl:
+    with open(file="model_stacking_classifier.pkl", mode="rb") as m_pkl:
         clf = pickle.load(file=m_pkl)
     pred_proba = clf.predict_proba(X=X)
-    confidence = np.round(a=np.max(pred_proba) * 100, decimals=2)
+    confidence = np.round(a=np.max(pred_proba) * 100, decimals=1)
     pred_class = clf.predict(X=X)[0]
     if pred_class == "QSO":
         pred_class = "Quasar"
-    else:
+    if pred_class == "STAR":
         pred_class = "Star"
-    print(f"The predicted class is '{pred_class}' with a confidence of {confidence}%.")
+    return f"The predicted class is '{pred_class}' with a confidence of {confidence}%."
 
 
-df = pd.DataFrame(
-    data=[["12", "12", "12", "12", "12", "12", "12", "1"]], columns=features
-)
-df = preprocess(df=df, features=features)
-df = featurize(df=df)
-prediction(df)
+def test_model(ra, dec, u, g, r, i, z, redshift):
+    df = pd.DataFrame(
+        data=[
+            [
+                ra,
+                dec,
+                u,
+                g,
+                r,
+                i,
+                z,
+                redshift,
+            ]
+        ],
+        columns=features,
+    )
+    df = preprocess(df=df, features=features)
+    df = featurize(df=df)
+    return prediction(df)
+
+
+print(
+    test_model(
+        ra=99.7741238427793,
+        dec=-1.10633761268037,
+        u=16.55442,
+        g=14.60306,
+        r=13.89092,
+        i=13.64049,
+        z=13.52043,
+        redshift=-3.229735e-05,
+    )
+)  # Star
+
+print(
+    test_model(
+        ra=195.953918788569,
+        dec=0.336255783379351,
+        u=23.45055,
+        g=20.91976,
+        r=18.93975,
+        i=18.71329,
+        z=18.23316,
+        redshift=3.648712,
+    )
+)  # Quasar
