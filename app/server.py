@@ -13,15 +13,15 @@ limiter = Limiter(app=app, key_func=get_remote_address)
 def index():
     return render_template(
         "index.html",
-        ra="",
-        dec="",
-        u="",
-        g="",
-        r="",
-        i="",
-        z="",
-        redshift="",
-        output="",
+        ra="180",
+        dec="0",
+        u="15",
+        g="15",
+        r="15",
+        i="15",
+        z="15",
+        redshift="5",
+        output="Press submit to get a prediction.",
     )
 
 
