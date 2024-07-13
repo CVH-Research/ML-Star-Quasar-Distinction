@@ -20,7 +20,6 @@ def index():
         r="15",
         i="15",
         z="15",
-        redshift="5",
         output="Press submit to get a prediction.",
     )
 
@@ -37,8 +36,7 @@ def submit():
         r = data.get("r")
         i = data.get("i")
         z = data.get("z")
-        redshift = data.get("redshift")
-        pred, conf = run_model(ra, dec, u, g, r, i, z, redshift)
+        pred, conf = run_model(ra, dec, u, g, r, i, z)
         output = f"{pred} with {conf}% confidence."
     except ValueError as e:
         output = "Please enter valid values."
@@ -53,7 +51,6 @@ def submit():
         r=r,
         i=i,
         z=z,
-        redshift=redshift,
         output=output,
     )
 

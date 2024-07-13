@@ -5,8 +5,8 @@ import warnings
 
 warnings.filterwarnings("ignore")
 
-features = ["ra", "dec", "u", "g", "r", "i", "z", "redshift"]
-fi_cols = ["u", "g", "r", "redshift", "g-r", "i-z", "u-r", "i-r", "z-r"]
+features = ["ra", "dec", "u", "g", "r", "i", "z"]
+fi_cols = ["u", "g", "r", "g-r", "i-z", "u-r", "i-r", "z-r"]
 
 
 def preprocess(df, features):
@@ -40,7 +40,7 @@ def prediction(X):
     return pred_class, confidence
 
 
-def run_model(ra, dec, u, g, r, i, z, redshift):
+def run_model(ra, dec, u, g, r, i, z):
     df = pd.DataFrame(
         data=[
             [
@@ -51,7 +51,6 @@ def run_model(ra, dec, u, g, r, i, z, redshift):
                 r,
                 i,
                 z,
-                redshift,
             ]
         ],
         columns=features,

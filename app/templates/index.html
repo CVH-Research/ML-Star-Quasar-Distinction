@@ -90,9 +90,6 @@
             <label for="z">Z: </label>
             <input type="text" class="z" name="z" value="{{ z }}" min="0" max="30" oninput="validateInput(this, 0, 30); document.querySelector('.z-slider').value = this.value">
             <input type="range" min="0" max="30" step="0.01" class="z-slider" value="{{ z }}" oninput="document.querySelector('.z').value = this.value"><br>
-            <label for="redshift">REDSHIFT: </label>
-            <input type="text" class="redshift" name="redshift" value="{{ redshift }}" min="0" max="10" oninput="validateInput(this, 0, 10); document.querySelector('.redshift-slider').value = this.value">
-            <input type="range" min="0" max="10" step="0.01" class="redshift-slider" value="{{ redshift }}" oninput="document.querySelector('.redshift').value = this.value"><br>
             <button type="submit">Submit</button>    
             <p>{{ output }}</p>
         </form>
