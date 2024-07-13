@@ -1,73 +1,101 @@
 <!DOCTYPE html>
-
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flive.staticflickr.com%2F65535%2F51736843339_f211e20e85_4k.jpg&f=1&nofb=1&ipt=525ccd1b730352fabf6fc88a0266b6ac92bd3834fd6ade5181f6a4dfc837b12e&ipo=images" type="image/jpg">
+    <title>Quasar vs. Star Identification</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+        }
 
-<link rel="icon" href="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flive.staticflickr.com%2F65535%2F51736843339_f211e20e85_4k.jpg&f=1&nofb=1&ipt=525ccd1b730352fabf6fc88a0266b6ac92bd3834fd6ade5181f6a4dfc837b12e&ipo=images" type="image/jpg">
-<title>Quasar vs. Star Identification</title>
+        .container {
+            width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #1e1e1e;
+            border-radius: 10px;
+        }
 
-<div class="container">
-    <form method="POST" action="{{url_for('submit')}}">
-        <label for="ra">RA: </label>
-        <input type="text" class="ra" name="ra"><br>
-        <label for="dec">DEC: </label>
-        <input type="text" class="dec" name="dec"><br>
-        <label for="u">U: </label>
-        <input type="text" class="u" name="u"><br>
-        <label for="g">G: </label>
-        <input type="text" class="g" name="g"><br>
-        <label for="r">R: </label>
-        <input type="text" class="r" name="r"><br>
-        <label for="i">I: </label>
-        <input type="text" class="i" name="i"><br>
-        <label for="z">Z: </label>
-        <input type="text" class="z" name="z"><br>
-        <label for="redshift">REDSHIFT: </label>
-        <input type="text" class="redshift" name="redshift"><br>
-        <button type="submit">Submit</button>    
-        <p>{{output}}</p>
-    </form>
-</div>
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-<style>
-    body {
-        font-family: Arial, sans-serif;
-    }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
 
-    .container {
-        width: 300px;
-        margin: 0 auto;
-        padding: 20px;
-    }
+        label {
+            margin: 10px 0;
+            font-weight: bold;
+        }
 
-    form {
-        display: flex;
-        flex-direction: column;
-    }
+        input[type="text"], input[type="range"] {
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #333;
+            color: #fff;
+            width: 100%;
+        }
 
-    label {
-        margin: 10px 0;
-        font-weight: bold;
-    }
+        button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
 
-    input {
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-
-    button {
-        margin-top: 20px;
-        padding: 10px;
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
-    button:hover {
-        background-color: #45a049;
-    }
-</style>
-
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <script>
+        function validateInput(input, min, max) {
+            if (input.value < min) input.value = min;
+            if (input.value > max) input.value = max;
+        }
+    </script>
 </head>
+<body>
+    <div class="container">
+        <h1>Quasar vs. Star Identification with ML</h1>
+        <form method="POST" action="{{url_for('submit')}}">
+            <label for="ra">RA: </label>
+            <input type="text" class="ra" name="ra" value="{{ ra }}" min="0" max="360" oninput="validateInput(this, 0, 360); document.querySelector('.ra-slider').value = this.value">
+            <input type="range" min="0" max="360" step="0.01" class="ra-slider" value="{{ ra }}" oninput="document.querySelector('.ra').value = this.value"><br>
+            <label for="dec">DEC: </label>
+            <input type="text" class="dec" name="dec" value="{{ dec }}" min="-90" max="90" oninput="validateInput(this, -90, 90); document.querySelector('.dec-slider').value = this.value">
+            <input type="range" min="-90" max="90" step="0.01" class="dec-slider" value="{{ dec }}" oninput="document.querySelector('.dec').value = this.value"><br>
+            <label for="u">U: </label>
+            <input type="text" class="u" name="u" value="{{ u }}" min="0" max="30" oninput="validateInput(this, 0, 30); document.querySelector('.u-slider').value = this.value">
+            <input type="range" min="0" max="30" step="0.01" class="u-slider" value="{{ u }}" oninput="document.querySelector('.u').value = this.value"><br>
+            <label for="g">G: </label>
+            <input type="text" class="g" name="g" value="{{ g }}" min="0" max="30" oninput="validateInput(this, 0, 30); document.querySelector('.g-slider').value = this.value">
+            <input type="range" min="0" max="30" step="0.01" class="g-slider" value="{{ g }}" oninput="document.querySelector('.g').value = this.value"><br>
+            <label for="r">R: </label>
+            <input type="text" class="r" name="r" value="{{ r }}" min="0" max="30" oninput="validateInput(this, 0, 30); document.querySelector('.r-slider').value = this.value">
+            <input type="range" min="0" max="30" step="0.01" class="r-slider" value="{{ r }}" oninput="document.querySelector('.r').value = this.value"><br>
+            <label for="i">I: </label>
+            <input type="text" class="i" name="i" value="{{ i }}" min="0" max="30" oninput="validateInput(this, 0, 30); document.querySelector('.i-slider').value = this.value">
+            <input type="range" min="0" max="30" step="0.01" class="i-slider" value="{{ i }}" oninput="document.querySelector('.i').value = this.value"><br>
+            <label for="z">Z: </label>
+            <input type="text" class="z" name="z" value="{{ z }}" min="0" max="30" oninput="validateInput(this, 0, 30); document.querySelector('.z-slider').value = this.value">
+            <input type="range" min="0" max="30" step="0.01" class="z-slider" value="{{ z }}" oninput="document.querySelector('.z').value = this.value"><br>
+            <label for="redshift">REDSHIFT: </label>
+            <input type="text" class="redshift" name="redshift" value="{{ redshift }}" min="0" max="10" oninput="validateInput(this, 0, 10); document.querySelector('.redshift-slider').value = this.value">
+            <input type="range" min="0" max="10" step="0.01" class="redshift-slider" value="{{ redshift }}" oninput="document.querySelector('.redshift').value = this.value"><br>
+            <button type="submit">Submit</button>    
+            <p>{{ output }}</p>
+        </form>
+    </div>
+</body>
+</html>

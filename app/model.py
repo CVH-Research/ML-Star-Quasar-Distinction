@@ -1,6 +1,9 @@
 import numpy as np
 import pandas as pd
 import pickle
+import warnings
+
+warnings.filterwarnings("ignore")
 
 features = ["ra", "dec", "u", "g", "r", "i", "z", "redshift"]
 fi_cols = ["u", "g", "r", "redshift", "g-r", "i-z", "u-r", "i-r", "z-r"]
