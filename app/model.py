@@ -34,10 +34,10 @@ def prediction(X):
         pred_class = "Quasar"
     if pred_class == "STAR":
         pred_class = "Star"
-    return f"The predicted class is '{pred_class}' with a confidence of {confidence}%."
+    return pred_class, confidence
 
 
-def test_model(ra, dec, u, g, r, i, z, redshift):
+def run_model(ra, dec, u, g, r, i, z, redshift):
     df = pd.DataFrame(
         data=[
             [
@@ -56,30 +56,3 @@ def test_model(ra, dec, u, g, r, i, z, redshift):
     df = preprocess(df=df, features=features)
     df = featurize(df=df)
     return prediction(df)
-
-
-print(
-    test_model(
-        ra=99.7741238427793,
-        dec=-1.10633761268037,
-        u=16.55442,
-        g=14.60306,
-        r=13.89092,
-        i=13.64049,
-        z=13.52043,
-        redshift=-3.229735e-05,
-    )
-)  # Star
-
-print(
-    test_model(
-        ra=195.953918788569,
-        dec=0.336255783379351,
-        u=23.45055,
-        g=20.91976,
-        r=18.93975,
-        i=18.71329,
-        z=18.23316,
-        redshift=3.648712,
-    )
-)  # Quasar
