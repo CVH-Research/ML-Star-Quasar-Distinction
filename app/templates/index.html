@@ -41,7 +41,7 @@
             border-radius: 5px;
             background-color: #333;
             color: #fff;
-            width: 100%;
+            width: 100% - 5px;
         }
 
         button {
@@ -56,6 +56,22 @@
 
         button:hover {
             background-color: #45a049;
+        }
+
+        .api-panel {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #2e2e2e;
+            border-radius: 10px;
+        }
+
+        .api-panel h2 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .api-panel p {
+            margin: 10px 0;
         }
     </style>
     <script>
@@ -85,7 +101,7 @@
             <input type="text" class="r" name="r" value="{{ r }}" min="0" max="30" oninput="validateInput(this, 0, 30); document.querySelector('.r-slider').value = this.value">
             <input type="range" min="0" max="30" step="0.01" class="r-slider" value="{{ r }}" oninput="document.querySelector('.r').value = this.value"><br>
             <label for="i">I: </label>
-            <input type="text" class="i" name="i" value="{{ i }}" min="0" max="30" oninput="validateInput(this, 0, 30); document.querySelector('.i-slider').value = this.value">
+            <input type="text" class="i" name="i" value="{{ i }}" min="0" max="30" oninput="validateInput(this, 0, 30); document.querySelector('.i-slider').value = this value">
             <input type="range" min="0" max="30" step="0.01" class="i-slider" value="{{ i }}" oninput="document.querySelector('.i').value = this.value"><br>
             <label for="z">Z: </label>
             <input type="text" class="z" name="z" value="{{ z }}" min="0" max="30" oninput="validateInput(this, 0, 30); document.querySelector('.z-slider').value = this.value">
@@ -93,6 +109,24 @@
             <button type="submit">Submit</button>    
             <p>{{ output }}</p>
         </form>
+    </div>
+    <div class="api-panel">
+        <h2>API Usage</h2>
+        <p>To use the API, send a POST request to the <code>/api/predict</code> endpoint with the following parameters in the body:</p>
+        <ul>
+            <li><code>ra</code>: Right Ascension (0 to 360)</li>
+            <li><code>dec</code>: Declination (-90 to 90)</li>
+            <li><code>u</code>: U-band magnitude (0 to 30)</li>
+            <li><code>g</code>: G-band magnitude (0 to 30)</li>
+            <li><code>r</code>: R-band magnitude (0 to 30)</li>
+            <li><code>i</code>: I-band magnitude (0 to 30)</li>
+            <li><code>z</code>: Z-band magnitude (0 to 30)</li>
+        </ul>
+        <p>The API will return a JSON response with the following structure:</p>
+        <pre><code>{
+    "prediction": pred,
+    "confidence": conf
+}</code></pre>
     </div>
 </body>
 </html>

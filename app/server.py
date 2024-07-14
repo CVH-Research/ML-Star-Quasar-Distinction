@@ -8,6 +8,36 @@ app = Flask(__name__)
 limiter = Limiter(app=app, key_func=get_remote_address)
 
 
+@app.route("/api")
+def api():
+    return get_remote_address()
+
+
+@app.route("/api/predict", methods=["POST"])
+@limiter.limit("60 per minute")
+def predict():
+    try:
+        data = request.form
+        ra = data.get("ra")
+        dec = data.get("dec")
+        u = data.get("u")
+        g = data.get("g")
+        r = data.get("r")
+        i = data.get("i")
+        z = data.get("z")
+        pred, conf = run_model(ra, dec, u, g, r, i, z)
+        output = {"prediction": pred, "confidence": conf}
+    except ValueError as e:
+        output = {"error": "Please enter valid values."}
+    except Exception as e:
+        output = {"error": str(e)}
+    return output
+
+
+def api():
+    return get_remote_address()
+
+
 @app.route("/")
 @limiter.limit("60 per minute")
 def index():

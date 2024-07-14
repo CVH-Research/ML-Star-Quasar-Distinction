@@ -28,8 +28,9 @@ def featurize(df):
 
 
 def prediction(X):
-    with open(file="model_stacking_classifier.pkl", mode="rb") as m_pkl:
-        clf = pickle.load(file=m_pkl)
+    with open(file="model_random_forest_classifier.pkl", mode="rb") as m_pkl:
+        clf_tuple = pickle.load(file=m_pkl)
+    clf = clf_tuple[1]  # CalibratedClassifierCV
     pred_proba = clf.predict_proba(X=X)
     confidence = np.round(a=np.max(pred_proba) * 100, decimals=1)
     pred_class = clf.predict(X=X)[0]
