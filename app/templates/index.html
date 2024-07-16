@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flive.staticflickr.com%2F65535%2F51736843339_f211e20e85_4k.jpg&f=1&nofb=1&ipt=525ccd1b730352fabf6fc88a0266b6ac92bd3834fd6ade5181f6a4dfc837b12e&ipo=images" type="image/jpg">
+    <title>Star vs. Quasar Identification</title>
+    <style>
+         body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #1e1e1e;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin: 5px 0;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        input[type="text"], input[type="range"] {
+            padding: 3px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #333;
+            color: #fff;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .api-panel {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #2e2e2e;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .api-panel h2 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .api-panel p {
+            margin: 10px 0;
+        }
+
+        pre {
+            background-color: #333;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+
+        .output {
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            .container, .api-panel {
+                width: 100%;
+                margin: 0;
+                padding: 10px;
+                box-shadow: none;
+                border-radius: 0;
+                background-color: #1e1e1e;
+            }
+
+            input[type="text"], input[type="range"] {
+                width: 90%;
+                margin: 0 auto;
+            }
+
+            button {
+                width: 95%;
+                margin: 0 auto;
+            }
+
+        }
+    </style>
+    <script>
+        function validateInput(input, min, max) {
+            if (input.value < min) input.value = min;
+            if (input.value > max) input.value = max;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Star vs. Quasar Identification with ML</h1>
+        <form method="POST" action="{{url_for('submit')}}">
+            <label for="ra">RA </label>
+            <input type="text" class="ra" name="ra" value="{{ ra }}" min="0" max="360" oninput="validateInput(this, 0, 360); document.querySelector('.ra-slider').value = this.value">
+            <input type="range" min="0" max="360" step="0.01" class="ra-slider" value="{{ ra }}" oninput="document.querySelector('.ra').value = this.value"><br>
+            <label for="dec">DEC </label>
+            <input type="text" class="dec" name="dec" value="{{ dec }}" min="-90" max="90" oninput="validateInput(this, -90, 90); document.querySelector('.dec-slider').value = this.value">
+            <input type="range" min="-90" max="90" step="0.01" class="dec-slider" value="{{ dec }}" oninput="document.querySelector('.dec').value = this.value"><br>
+            <label for="u">U </label>
+            <input type="text" class="u" name="u" value="{{ u }}" min="0" max="30" oninput="validateInput(this, 0, 30); document.querySelector('.u-slider').value = this.value">
+            <input type="range" min="0" max="30" step="0.01" class="u-slider" value="{{ u }}" oninput="document.querySelector('.u').value = this.value"><br>
+            <label for="g">G </label>
+            <input type="text" class="g" name="g" value="{{ g }}" min="0" max="30" oninput="validateInput(this, 0, 30); document.querySelector('.g-slider').value = this.value">
+            <input type="range" min="0" max="30" step="0.01" class="g-slider" value="{{ g }}" oninput="document.querySelector('.g').value = this.value"><br>
+            <label for="r">R </label>
+            <input type="text" class="r" name="r" value="{{ r }}" min="0" max="30" oninput="validateInput(this, 0, 30); document.querySelector('.r-slider').value = this.value">
+            <input type="range" min="0" max="30" step="0.01" class="r-slider" value="{{ r }}" oninput="document.querySelector('.r').value = this.value"><br>
+            <label for="i">I </label>
+            <input type="text" class="i" name="i" value="{{ i }}" min="0" max="30" oninput="validateInput(this, 0, 30); document.querySelector('.i-slider').value = this.value">
+            <input type="range" min="0" max="30" step="0.01" class="i-slider" value="{{ i }}" oninput="document.querySelector('.i').value = this.value"><br>
+            <label for="z">Z </label>
+            <input type="text" class="z" name="z" value="{{ z }}" min="0" max="30" oninput="validateInput(this, 0, 30); document.querySelector('.z-slider').value = this.value">
+            <input type="range" min="0" max="30" step="0.01" class="z-slider" value="{{ z }}" oninput="document.querySelector('.z').value = this.value"><br>
+            <button type="submit">Submit</button>
+            <p class="output">{{ output }}</p>
+        </form>
+        <div class="api-panel">
+            <h2>API Usage</h2>
+            <p>To use the API, send a POST request to the <code>/api/predict</code> endpoint with the following parameters in the body:</p>
+            <ul>
+                <li><code>ra</code>: Right Ascension (0 to 360)</li>
+                <li><code>dec</code>: Declination (-90 to 90)</li>
+                <li><code>u</code>: U-band magnitude (0 to 30)</li>
+                <li><code>g</code>: G-band magnitude (0 to 30)</li>
+                <li><code>r</code>: R-band magnitude (0 to 30)</li>
+                <li><code>i</code>: I-band magnitude (0 to 30)</li>
+                <li><code>z</code>: Z-band magnitude (0 to 30)</li>
+            </ul>
+            <p>The API will return a JSON response with the following structure:</p>
+            <pre><code>{
+    "prediction": pred (Star or Quasar),
+    "confidence": conf (XX.XX%)
+}</code></pre>
+            <p>The API has a usage limit of 60 requests per minute. This is different from the usage limit of the web app.</p>
+        </div>
+    </div>
+</body>
+</html>
